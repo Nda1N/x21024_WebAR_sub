@@ -1,7 +1,7 @@
 const loadingCircle = document.getElementById('loadingCircle');
 const gifPopup = document.getElementById('gifPopup');
 const popupGif = document.getElementById('popupGif');
-const closeButton = document.getElementById('closeButton'); // 最初から配置されている×ボタン
+const closeButton = document.getElementById('closeButton'); // 元からある×ボタン
 const markerStatus = document.getElementById('markerStatus');
 const markerBoundary = document.getElementById('markerBoundary');
 
@@ -77,27 +77,27 @@ function showPopupGif(gifPathsArray) {
     };
 
     playGif(currentGifIndex);
-
-    // ボタン1（tb）を押すと切り替え
-    button1.addEventListener('click', () => {
-        currentGifIndex = 0; // tb
-        playGif(currentGifIndex);
-    });
-
-    // ボタン2（t）を押すと切り替え
-    button2.addEventListener('click', () => {
-        currentGifIndex = 1; // t
-        playGif(currentGifIndex);
-    });
-
-    // 最初から配置されている×ボタンのクリックイベント
-    closeButton.addEventListener('click', () => {
-        gifPopup.style.display = 'none';
-        isPlaying = false;
-        markerBoundary.style.display = 'block';
-        updateMarkerStatus(true, false);  // マーカー未検出の状態に戻す
-    });
 }
+
+// **修正**: 最初からある×ボタンでポップアップを閉じる
+closeButton.addEventListener('click', () => {
+    gifPopup.style.display = 'none';
+    isPlaying = false;
+    markerBoundary.style.display = 'block';
+    updateMarkerStatus(true, false);  // マーカー未検出の状態に戻す
+});
+
+// ボタン1（tb）を押すと切り替え
+button1.addEventListener('click', () => {
+    currentGifIndex = 0; // tb
+    popupGif.src = gifPathsArray[currentGifIndex];
+});
+
+// ボタン2（t）を押すと切り替え
+button2.addEventListener('click', () => {
+    currentGifIndex = 1; // t
+    popupGif.src = gifPathsArray[currentGifIndex];
+});
 
 // マーカー検出処理
 document.querySelectorAll('a-marker').forEach(marker => {
